@@ -1,6 +1,6 @@
 {
 	"name": "eslint-plugin-php",
-	"description": " An ESLint plugin to lint PHP files",
+	"description": "An ESLint plugin to lint PHP files",
 	"version": "0.0.0",
 	"author": "StyleShit",
 	"license": "MIT",
