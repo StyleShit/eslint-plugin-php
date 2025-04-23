@@ -1,5 +1,6 @@
 import { ESLint } from 'eslint';
 import { PHPLanguage } from './language/php-language';
+import { eqeqeq } from './rules/eqeqeq';
 
 const plugin = {
 	meta: {
@@ -9,7 +10,11 @@ const plugin = {
 	languages: {
 		php: new PHPLanguage(),
 	},
+	rules: {
+		eqeqeq,
+	},
 } satisfies ESLint.Plugin;
 
 export const meta = plugin.meta;
 export const languages = plugin.languages;
+export const rules = plugin.rules;
