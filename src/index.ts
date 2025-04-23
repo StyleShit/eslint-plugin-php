@@ -18,6 +18,4 @@ const plugin = {
 	},
 } satisfies ESLint.Plugin;
 
-export const meta = plugin.meta;
-export const languages = plugin.languages;
-export const rules = plugin.rules;
+export default plugin;

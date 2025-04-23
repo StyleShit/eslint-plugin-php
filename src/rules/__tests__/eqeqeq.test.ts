@@ -1,5 +1,5 @@
 import { RuleTester, type Rule } from 'eslint';
-import * as php from '../../index';
+import php from '../../index';
 import { eqeqeq } from '../eqeqeq';
 
 const ruleTester = new RuleTester({
