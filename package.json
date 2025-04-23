@@ -1,0 +1,54 @@
+{
+	"name": "create-typescript-package",
+	"description": "A template project for developing & publishing TypeScript packages",
+	"version": "0.0.0",
+	"author": "StyleShit",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/StyleShit/create-typescript-package"
+	},
+	"type": "module",
+	"main": "dist/index.cjs",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs",
+			"types": "./dist/index.d.ts"
+		},
+		"./package.json": "./package.json"
+	},
+	"files": [
+		"README.md",
+		"CHANGELOG.md",
+		"/dist",
+		"/src",
+		"!**/__tests__"
+	],
+	"scripts": {
+		"test": "vitest",
+		"test:coverage": "vitest run --coverage",
+		"lint": "concurrently -n eslint,tsc -c magenta,blue 'eslint ./' 'tsc'",
+		"format": "prettier --write ./",
+		"format:check": "prettier --check ./",
+		"build": "tsup src/index.ts --format cjs,esm --dts",
+		"release": "npm run build && changeset publish"
+	},
+	"devDependencies": {
+		"@changesets/cli": "^2.27.7",
+		"@eslint/js": "^9.9.0",
+		"@types/eslint__js": "^8.42.3",
+		"@types/node": "^22.4.1",
+		"@vitest/coverage-v8": "^2.0.5",
+		"concurrently": "^8.2.2",
+		"eslint": "^9.9.0",
+		"globals": "^15.9.0",
+		"prettier": "^3.3.3",
+		"tsup": "^8.2.4",
+		"typescript": "^5.5.4",
+		"typescript-eslint": "^8.1.0",
+		"vitest": "^2.0.5"
+	}
+}

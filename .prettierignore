@@ -1,0 +1,4 @@
+/.changeset/**
+!/.changeset/config.json
+/CHANGELOG.md
+/dist/**

@@ -1,0 +1,49 @@
+name: CI
+
+on: [push, pull_request]
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    ci:
+        name: Lint, Test and Build
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout source code
+              uses: actions/checkout@v4
+
+            - name: Install Node.js
+              uses: actions/setup-node@v4
+              with:
+                  cache: 'npm'
+                  node-version: 20.x
+
+            - name: Install Deps
+              run: npm ci
+
+            - name: Run Lint
+              run: npm run lint
+
+            - name: Run Format
+              run: npm run format:check
+
+            - name: Run Test
+              run: npm run test:coverage
+
+            - name: Cache build
+              id: cache-build
+              uses: actions/cache@v4
+              env:
+                  cache-name: cache-build
+              with:
+                  path: ./dist
+                  key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-build-${{ env.cache-name }}-
+                      ${{ runner.os }}-build-
+                      ${{ runner.os }}-
+
+            - name: Run Build
+              run: npm run build
