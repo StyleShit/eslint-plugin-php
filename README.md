@@ -9,7 +9,7 @@ An ESLint plugin to lint PHP files.
 ## Installation
 
 ```bash
-npm i -D eslint eslint-plugin-php
+npm i -D eslint-plugin-php
 ```
 
 ## Usage
@@ -42,5 +42,5 @@ export default defineConfig([
 
 | Rule ID                | Description                           | Fixable? |
 | ---------------------- | ------------------------------------- | -------- |
-| `php/eqeqeq`           | Require the use of `===` and `!==`    | ✅       |
-| `php/no-array-keyword` | Disallow the use of the array keyword | ❌       |
+| `php/eqeqeq`           | Require the use of `===` and `!==`    | ❌       |
+| `php/no-array-keyword` | Disallow the use of the array keyword | ✅       |
