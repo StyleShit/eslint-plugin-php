@@ -1,6 +1,8 @@
 import { ESLint } from 'eslint';
 import { PHPLanguage } from './language/php-language';
+
 import { eqeqeq } from './rules/eqeqeq';
+import { noArrayKeyword } from './rules/no-array-keyword';
 
 const plugin = {
 	meta: {
@@ -12,6 +14,7 @@ const plugin = {
 	},
 	rules: {
 		eqeqeq,
+		'no-array-keyword': noArrayKeyword,
 	},
 } satisfies ESLint.Plugin;
 
