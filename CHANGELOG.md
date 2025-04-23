@@ -1,5 +1,11 @@
 # eslint-plugin-php
 
+## 0.0.2
+
+### Patch Changes
+
+- b9d60f2: Correct documentation for fixable rules
+
 ## 0.0.1
 
 ### Patch Changes
