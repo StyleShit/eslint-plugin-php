@@ -1,12 +1,12 @@
 {
-	"name": "create-typescript-package",
-	"description": "A template project for developing & publishing TypeScript packages",
+	"name": "eslint-plugin-php",
+	"description": " An ESLint plugin to lint PHP files",
 	"version": "0.0.0",
 	"author": "StyleShit",
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/StyleShit/create-typescript-package"
+		"url": "https://github.com/StyleShit/eslint-plugin-php"
 	},
 	"type": "module",
 	"main": "dist/index.cjs",
