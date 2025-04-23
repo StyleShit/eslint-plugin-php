@@ -1,6 +1,6 @@
 import type { Node } from 'php-parser';
 import type { RuleDefinition } from '@eslint/core';
-import type { PHPSourceCode } from './language/php-source-code';
+import type { PHPSourceCode } from '../language/php-source-code';
 
 type Rule<
 	TMessageIds extends string = string,

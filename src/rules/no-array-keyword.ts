@@ -1,4 +1,4 @@
-import { createRule } from '../create-rule';
+import { createRule } from '../utils/create-rule';
 
 type MessageIds = 'noArrayKeyword';
 type Options = [];
