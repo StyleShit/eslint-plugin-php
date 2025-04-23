@@ -39,7 +39,7 @@
 		"lint": "concurrently -n eslint,tsc -c magenta,blue 'eslint ./' 'tsc'",
 		"format": "prettier --write ./",
 		"format:check": "prettier --check ./",
-		"build": "tsup src/index.ts --format cjs,esm --dts",
+		"build": "tsup",
 		"release": "npm run build && changeset publish"
 	},
 	"devDependencies": {

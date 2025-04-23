@@ -6,8 +6,8 @@ import { noArrayKeyword } from './rules/no-array-keyword';
 
 const plugin = {
 	meta: {
-		name: 'eslint-plugin-php',
-		version: '0.0.0',
+		name: process.env.PACKAGE_NAME,
+		version: process.env.PACKAGE_VERSION,
 	},
 	languages: {
 		php: new PHPLanguage(),
