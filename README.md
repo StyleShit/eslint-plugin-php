@@ -2,7 +2,9 @@
 
 An ESLint plugin to lint PHP files.
 
-This is basically a POC for PHP linter using ESLint's new [Languages API](https://eslint.org/docs/latest/extend/languages). It aims to provide a better linting experience than PHP CodeSniffer.
+> [!NOTE]  
+> This is basically a POC for PHP linter using ESLint's new [Languages API](https://eslint.org/docs/latest/extend/languages).
+> It aims to provide a better linting experience than [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
 
 ## Installation
 
