@@ -27,6 +27,12 @@
 		"/src",
 		"!**/__tests__"
 	],
+	"keywords": [
+		"eslint",
+		"eslintplugin",
+		"eslint-plugin",
+		"php"
+	],
 	"scripts": {
 		"test": "vitest",
 		"test:coverage": "vitest run --coverage",
