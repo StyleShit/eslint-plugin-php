@@ -15,6 +15,7 @@ export const eqeqeq = createRule<MessageIds, Options>({
 			unexpected:
 				"Expected '{{expectedOperator}}' and instead saw '{{actualOperator}}'.",
 		},
+		schema: [],
 	},
 
 	create(context) {

@@ -1,10 +1,15 @@
 import globals from 'globals';
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
+import eslintPlugin from 'eslint-plugin-eslint-plugin';
 
 export default tseslint.config(
 	eslint.configs.recommended,
 	...tseslint.configs.strictTypeChecked,
+
+	// eslint-disable-next-line -- It has no types.
+	eslintPlugin.configs['flat/recommended'],
+
 	{
 		languageOptions: {
 			globals: {

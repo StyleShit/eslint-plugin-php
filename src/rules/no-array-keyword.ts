@@ -13,6 +13,7 @@ export const noArrayKeyword = createRule<MessageIds, Options>({
 		messages: {
 			noArrayKeyword: 'The array keyword is not allowed. Use [] instead.',
 		},
+		schema: [],
 	},
 
 	create(context) {
