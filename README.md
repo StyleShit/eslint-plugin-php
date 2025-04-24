@@ -40,7 +40,8 @@ export default defineConfig([
 
 ## Available Rules
 
-| Rule ID                | Description                           | Fixable? |
-| ---------------------- | ------------------------------------- | -------- |
-| `php/eqeqeq`           | Require the use of `===` and `!==`    | ❌       |
-| `php/no-array-keyword` | Disallow the use of the array keyword | ✅       |
+| Rule ID                  | Description                                          | Fixable? | Suggestion? |
+|--------------------------|------------------------------------------------------|----------|-------------|
+| `php/eqeqeq`             | Require the use of `===` and `!==`                   | ❌        | ❌         |
+| `php/no-array-keyword`   | Disallow the use of the array keyword                | ✅        | ❌         |
+| `php/require-visibility` | Require visibility for class methods and properties  | ❌        | ✅         |
