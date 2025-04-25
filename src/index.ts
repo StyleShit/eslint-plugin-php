@@ -3,6 +3,7 @@ import { PHPLanguage } from './language/php-language';
 
 import { eqeqeq } from './rules/eqeqeq';
 import { noArrayKeyword } from './rules/no-array-keyword';
+import { noAssignRef } from './rules/no-assign-ref';
 
 const plugin = {
 	meta: {
@@ -15,6 +16,7 @@ const plugin = {
 	rules: {
 		eqeqeq,
 		'no-array-keyword': noArrayKeyword,
+		'no-assign-ref': noAssignRef
 	},
 } satisfies ESLint.Plugin;
 

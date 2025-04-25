@@ -44,3 +44,4 @@ export default defineConfig([
 | ---------------------- | ------------------------------------- | -------- |
 | `php/eqeqeq`           | Require the use of `===` and `!==`    | ❌       |
 | `php/no-array-keyword` | Disallow the use of the array keyword | ✅       |
+| `php/no-assign-ref`    | Disallow assigning by reference | ✅       |
