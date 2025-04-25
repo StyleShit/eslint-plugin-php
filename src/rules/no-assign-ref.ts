@@ -6,7 +6,7 @@ type Options = [];
 
 export const noAssignRef = createRule<MessageIds, Options>({
     meta: {
-        type: 'layout',
+        type: 'suggestion',
         fixable: 'code',
         docs: {
             description: 'Disallow assigning by reference',
