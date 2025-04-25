@@ -1,4 +1,3 @@
-import type { Bin } from 'php-parser';
 import { createRule } from '../utils/create-rule';
 
 type MessageIds = 'noAssignRef';
@@ -20,10 +19,7 @@ export const noAssignRef = createRule<MessageIds, Options>({
 
     create(context) {
         return {
-            "assignref"(_node) {
-                // TODO: Fix the types.
-                const node = _node as Bin;
-
+            "assignref"(node) {
                 context.report({
                     node,
                     messageId: 'noAssignRef',
