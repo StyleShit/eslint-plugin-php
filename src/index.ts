@@ -3,6 +3,7 @@ import { PHPLanguage } from './language/php-language';
 
 import { eqeqeq } from './rules/eqeqeq';
 import { noArrayKeyword } from './rules/no-array-keyword';
+import { requireVisibility } from './rules/require-visibility';
 
 const plugin = {
 	meta: {
@@ -15,6 +16,7 @@ const plugin = {
 	rules: {
 		eqeqeq,
 		'no-array-keyword': noArrayKeyword,
+		'require-visibility': requireVisibility,
 	},
 } satisfies ESLint.Plugin;
 
