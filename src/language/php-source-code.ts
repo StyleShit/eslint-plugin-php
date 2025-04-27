@@ -1,26 +1,16 @@
-import type { Location, Node, Program } from 'php-parser';
+import type { Location, Node } from 'php-parser';
 import { simpleTraverse } from '../utils/simple-traverse';
 import {
 	type SourceRange,
 	type TraversalStep,
-	TextSourceCodeBase,
 	VisitNodeStep,
 } from '@eslint/plugin-kit';
-import { Position } from '@eslint/core';
+import type { Position } from '@eslint/core';
 import { LINE_START } from './php-language';
+import { TextSourceCodeWithComments } from './text-source-code-with-comments';
 
-export class PHPSourceCode extends TextSourceCodeBase {
+export class PHPSourceCode extends TextSourceCodeWithComments {
 	#parents = new WeakMap<Node, Node>();
-
-	public override ast: Program;
-	public override text: string;
-
-	constructor({ ast, text }: { ast: Program; text: string }) {
-		super({ ast, text });
-
-		this.ast = ast;
-		this.text = text;
-	}
 
 	override getParent(node: Node) {
 		return this.#parents.get(node);
