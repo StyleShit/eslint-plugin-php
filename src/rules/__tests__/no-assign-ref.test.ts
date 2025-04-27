@@ -31,7 +31,7 @@ ruleTester.run(
 						endColumn: 37,
 						suggestions: [
 							{
-								desc: 'Remove reference assignment',
+								desc: 'Remove the reference operator (&).',
 								output: '<?php $a = [1, 2, 3]; $my_var = $a;',
 							},
 						],
@@ -49,7 +49,7 @@ ruleTester.run(
 						endColumn: 31,
 						suggestions: [
 							{
-								desc: 'Remove reference assignment',
+								desc: 'Remove the reference operator (&).',
 								output: '<?php function passByRef($var) { return []; }',
 							},
 						],
@@ -67,7 +67,7 @@ ruleTester.run(
 						endColumn: 49,
 						suggestions: [
 							{
-								desc: 'Remove reference assignment',
+								desc: 'Remove the reference operator (&).',
 								output: '<?php function returnByRef($var) { return []; }',
 							},
 						],
@@ -85,7 +85,7 @@ ruleTester.run(
 						endColumn: 39,
 						suggestions: [
 							{
-								desc: 'Remove reference assignment',
+								desc: 'Remove the reference operator (&).',
 								output: '<?php $useByRef = function() use($var) {};',
 							},
 						],

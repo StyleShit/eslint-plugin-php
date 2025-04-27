@@ -1,6 +1,6 @@
 import { createRule } from '../utils/create-rule';
 
-type MessageIds = 'noAssignRef';
+type MessageIds = 'noAssignRef' | 'noAssignRefFix';
 type Options = [];
 
 export const disallowReferences = createRule<MessageIds, Options>({
@@ -13,6 +13,8 @@ export const disallowReferences = createRule<MessageIds, Options>({
 		},
 		messages: {
 			noAssignRef: 'Assigning by reference is not allowed.',
+			noAssignRefFix: 'Remove the reference operator (&).',
+			
 		},
 		schema: [],
 	},
@@ -27,7 +29,7 @@ export const disallowReferences = createRule<MessageIds, Options>({
 					messageId: 'noAssignRef',
 					suggest: [
 						{
-							desc: 'Remove reference assignment',
+							messageId: 'noAssignRefFix',
 							fix(fixer) {
 								const nodeText =
 									context.sourceCode.getText(node);
