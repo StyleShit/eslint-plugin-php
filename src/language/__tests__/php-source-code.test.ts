@@ -68,7 +68,6 @@ describe('PHPSourceCode', () => {
 			/* Invalid rule config comments: */
 			/* eslint php/test-rule: [error */
 			/* eslint php/test-rule: [1, { allow: ["foo"] ] */
-
 		`;
 
 		const sourceCode = createSourceCode(code);
