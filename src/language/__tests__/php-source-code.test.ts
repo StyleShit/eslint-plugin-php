@@ -57,7 +57,7 @@ describe('PHPSourceCode', () => {
 		expect(offset).toBe(52);
 	});
 
-	it('should return inline config', () => {
+	it('should return inline configs', () => {
 		// Arrange.
 		const code = `<?php
 			/* Valid rule config comments: */
