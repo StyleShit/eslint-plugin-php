@@ -16,7 +16,7 @@ const plugin = {
 	rules: {
 		eqeqeq,
 		'no-array-keyword': noArrayKeyword,
-		'no-assign-ref': noAssignRef
+		'no-assign-ref': noAssignRef,
 	},
 } satisfies ESLint.Plugin;
 
