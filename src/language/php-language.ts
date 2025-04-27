@@ -44,12 +44,25 @@ export class PHPLanguage implements Language {
 			};
 		}
 
-		const ast = this.#engine.parseCode(file.body, file.path);
+		try {
+			const ast = this.#engine.parseCode(file.body, file.path);
 
-		return {
-			ok: true,
-			ast,
-		};
+			return {
+				ok: true,
+				ast,
+			};
+		} catch {
+			return {
+				ok: false,
+				errors: [
+					{
+						message: 'File cannot be parsed',
+						line: this.lineStart,
+						column: this.columnStart,
+					},
+				],
+			};
+		}
 	}
 
 	createSourceCode(file: File, input: OkParseResult<Program>) {
