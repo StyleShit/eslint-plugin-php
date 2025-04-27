@@ -14,7 +14,6 @@ export const disallowReferences = createRule<MessageIds, Options>({
 		messages: {
 			noAssignRef: 'Assigning by reference is not allowed.',
 			noAssignRefFix: 'Remove the reference operator (&).',
-			
 		},
 		schema: [],
 	},
