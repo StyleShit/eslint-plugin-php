@@ -40,8 +40,12 @@ export default defineConfig([
 
 ## Available Rules
 
-| Rule ID                  | Description                                          | Fixable? | Suggestion? |
-|--------------------------|------------------------------------------------------|----------|-------------|
-| `php/eqeqeq`             | Require the use of `===` and `!==`                   | ❌       | ❌          |
-| `php/no-array-keyword`   | Disallow the use of the array keyword                | ✅       | ❌          |
-| `php/require-visibility` | Require visibility for class methods and properties  | ❌       | ✅          |
+🔧 - Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/use/command-line-interface#--fix).
+
+💡 - Manually fixable by [editor suggestions](https://eslint.org/docs/latest/use/core-concepts#rule-suggestions).
+
+| Rule ID                  | Description                                         | 🔧  | 💡  |
+| ------------------------ | --------------------------------------------------- | --- | --- |
+| `php/eqeqeq`             | Require the use of `===` and `!==`                  |     |     |
+| `php/no-array-keyword`   | Disallow the use of the array keyword               | 🔧  |     |
+| `php/require-visibility` | Require visibility for class methods and properties |     | 💡  |

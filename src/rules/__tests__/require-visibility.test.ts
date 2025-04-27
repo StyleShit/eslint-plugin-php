@@ -1,6 +1,6 @@
 import { RuleTester, type Rule } from 'eslint';
 import php from '../../index';
-import { requireVisibility } from '../require-visibility';
+import { requireVisibility, visibilityOptions } from '../require-visibility';
 
 const ruleTester = new RuleTester({
 	plugins: {
@@ -19,15 +19,20 @@ ruleTester.run(
 			'<?php class Foo { public static function bar() {} }',
 			'<?php class Foo { abstract public static function bar(); }',
 			'<?php class Foo { public $a = 1; }',
-			'<?php class Foo { static public $a = 1; }',
+			'<?php class Foo { public static $a = 1; }',
 			'<?php class Foo { private const FOO = 1; }',
+			'<?php function foo() {}',
 		],
 		invalid: [
 			{
+				name: 'method',
 				code: '<?php class Foo { function bar() {} }',
 				errors: [
 					{
 						messageId: 'requireVisibilityForMethod',
+						data: {
+							name: 'bar',
+						},
 						line: 1,
 						column: 19,
 						endLine: 1,
@@ -53,60 +58,94 @@ ruleTester.run(
 				],
 			},
 			{
+				name: 'single class constant',
 				code: '<?php class Foo { const BAR = 1; }',
 				errors: [
 					{
 						messageId: 'requireVisibilityForClassConstant',
 						line: 1,
-						column: 25,
+						column: 19,
 						endLine: 1,
 						endColumn: 32,
-						suggestions: [
-							{
-								messageId: 'addVisibility',
-								data: { visibility: 'private' },
-								output: '<?php class Foo { private const BAR = 1; }',
-							},
-							{
-								messageId: 'addVisibility',
-								data: { visibility: 'protected' },
-								output: '<?php class Foo { protected const BAR = 1; }',
-							},
-							{
-								messageId: 'addVisibility',
-								data: { visibility: 'public' },
-								output: '<?php class Foo { public const BAR = 1; }',
-							},
-						],
+						suggestions: visibilityOptions.map((visibility) => ({
+							messageId: 'addVisibility',
+							data: { visibility },
+							output: `<?php class Foo { ${visibility} const BAR = 1; }`,
+						})),
 					},
 				],
 			},
 			{
-				code: '<?php class Foo { var $bar = 1; }',
+				name: 'multiple class constants',
+				code: `<?php class Foo {
+							const
+								BAR = 1,
+								BAZ = 2;
+						}`,
+				errors: [
+					{
+						messageId: 'requireVisibilityForClassConstants',
+						line: 2,
+						column: 8,
+						endLine: 4,
+						endColumn: 16,
+						suggestions: visibilityOptions.map((visibility) => ({
+							messageId: 'addVisibility',
+							data: { visibility },
+							output: `<?php class Foo {
+							${visibility} const
+								BAR = 1,
+								BAZ = 2;
+						}`,
+						})),
+					},
+				],
+			},
+			{
+				name: 'single class property',
+				code: '<?php class Foo { $bar = 1; }',
 				errors: [
 					{
 						messageId: 'requireVisibilityForProperty',
+						data: {
+							name: 'bar',
+						},
 						line: 1,
-						column: 23,
+						column: 19,
 						endLine: 1,
-						endColumn: 25,
-						suggestions: [
-							{
-								messageId: 'addVisibility',
-								data: { visibility: 'private' },
-								output: '<?php class Foo { private $bar = 1; }',
-							},
-							{
-								messageId: 'addVisibility',
-								data: { visibility: 'protected' },
-								output: '<?php class Foo { protected $bar = 1; }',
-							},
-							{
-								messageId: 'addVisibility',
-								data: { visibility: 'public' },
-								output: '<?php class Foo { public $bar = 1; }',
-							},
-						],
+						endColumn: 27,
+						suggestions: visibilityOptions.map((visibility) => ({
+							messageId: 'addVisibility',
+							data: { visibility },
+							output: `<?php class Foo { ${visibility} $bar = 1; }`,
+						})),
+					},
+				],
+			},
+			{
+				name: 'multiple class properties',
+				code: `<?php class Foo { 
+							$bar = 1,
+							$baz = 2;
+						}`,
+				errors: [
+					{
+						messageId: 'requireVisibilityForProperties',
+						data: {
+							name: 'bar, baz',
+						},
+						line: 2,
+						column: 8,
+						endLine: 3,
+						endColumn: 16,
+						suggestions: visibilityOptions.map((visibility) => ({
+							messageId: 'addVisibility',
+							data: { visibility },
+							output: `<?php class Foo { 
+							${visibility} $bar = 1,
+							$baz = 2;
+						}`,
+						})),
 					},
 				],
 			},

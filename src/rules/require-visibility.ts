@@ -1,14 +1,18 @@
 import { createRule } from '../utils/create-rule';
-import { ClassConstant, Method, PropertyStatement } from 'php-parser';
+import { extractNames } from '../utils/extract-names';
+import type { ClassConstant, Method, PropertyStatement } from 'php-parser';
 
 type MessageIds =
 	| 'requireVisibilityForMethod'
 	| 'requireVisibilityForClassConstant'
+	| 'requireVisibilityForClassConstants'
 	| 'requireVisibilityForProperty'
+	| 'requireVisibilityForProperties'
 	| 'addVisibility';
+
 type Options = [];
 
-const visibilityOptions = ['private', 'protected', 'public'];
+export const visibilityOptions = ['private', 'protected', 'public'];
 
 export const requireVisibility = createRule<MessageIds, Options>({
 	meta: {
@@ -16,16 +20,25 @@ export const requireVisibility = createRule<MessageIds, Options>({
 		fixable: 'code',
 		hasSuggestions: true,
 		docs: {
-			description: 'Require visibility to be declared on methods',
+			description: 'Require visibility for class methods and properties',
 		},
 		messages: {
 			requireVisibilityForMethod:
-				'Visibility must be declared on method "{{name}}"',
+				"Visibility must be declared on method '{{name}}'.",
+
 			requireVisibilityForClassConstant:
-				'Visibility must be declared on class constants "{{name}}"',
+				"Visibility must be declared on class constant '{{name}}'.",
+
+			requireVisibilityForClassConstants:
+				"Visibility must be declared on class constants '{{name}}'.",
+
 			requireVisibilityForProperty:
-				'Visibility must be declared on properties "{{name}}"',
-			addVisibility: 'Add "{{visibility}}" visibility',
+				"Visibility must be declared on property '{{name}}'.",
+
+			requireVisibilityForProperties:
+				"Visibility must be declared on properties '{{name}}'.",
+
+			addVisibility: "Add '{{visibility}}' visibility.",
 		},
 		schema: [],
 	},
@@ -52,61 +65,79 @@ export const requireVisibility = createRule<MessageIds, Options>({
 
 							return fixer.replaceText(
 								node,
-								nodeText.replace(
-									/^function /,
-									`${visibility} function `,
-								),
+								`${visibility} ${nodeText}`,
 							);
 						},
 					})),
 				});
 			},
+
 			'classconstant[visibility=""]'(_node) {
 				const node = _node as ClassConstant;
 
+				const constKeywordLoc = context.sourceCode.findClosestKeyword(
+					node,
+					'const',
+				);
+
+				if (!constKeywordLoc) {
+					return;
+				}
+
+				const constantsNames = extractNames(node.constants);
+
 				context.report({
 					node,
-					messageId: 'requireVisibilityForClassConstant',
+					loc: {
+						start: constKeywordLoc.start,
+						end: context.sourceCode.getLoc(node).end,
+					},
+					messageId:
+						constantsNames.length === 1
+							? 'requireVisibilityForClassConstant'
+							: 'requireVisibilityForClassConstants',
 					data: {
-						name: node.constants.map(({ name }) => name).join(', '),
+						name: constantsNames.join(', '),
 					},
 					suggest: visibilityOptions.map((visibility) => ({
 						messageId: 'addVisibility',
 						data: { visibility },
 						fix(fixer) {
-							const nodeText = context.sourceCode.getText(node);
-
-							return fixer.replaceText(
-								node,
-								nodeText.replace(
-									/const /,
-									`${visibility} const `,
-								),
+							return fixer.insertTextBeforeRange(
+								[
+									constKeywordLoc.start.offset,
+									constKeywordLoc.end.offset,
+								],
+								`${visibility} `,
 							);
 						},
 					})),
 				});
 			},
-			'propertystatement[visibility=null]'(_node) {
+
+			'propertystatement[visibility=""]'(_node) {
 				const node = _node as PropertyStatement;
+
+				const propertiesNames = extractNames(node.properties);
 
 				context.report({
 					node,
-					messageId: 'requireVisibilityForProperty',
+					messageId:
+						propertiesNames.length === 1
+							? 'requireVisibilityForProperty'
+							: 'requireVisibilityForProperties',
 					data: {
-						name: node.properties
-							.map(({ name }) => name)
-							.join(', '),
+						name: propertiesNames.join(', '),
 					},
 					suggest: visibilityOptions.map((visibility) => ({
 						messageId: 'addVisibility',
 						data: { visibility },
-						fix(fixer) {
+						fix: (fixer) => {
 							const nodeText = context.sourceCode.getText(node);
 
 							return fixer.replaceText(
 								node,
-								nodeText.replace(/var /, `${visibility} `),
+								`${visibility} ${nodeText}`,
 							);
 						},
 					})),
