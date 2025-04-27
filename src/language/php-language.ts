@@ -2,12 +2,15 @@ import type { File, Language, OkParseResult, ParseResult } from '@eslint/core';
 import { Engine, type Program } from 'php-parser';
 import { PHPSourceCode } from './php-source-code';
 
+export const LINE_START = 1 as const;
+export const COLUMN_START = 0 as const;
+
 export class PHPLanguage implements Language {
 	fileType = 'text' as const;
 
-	lineStart = 1 as const;
+	lineStart = LINE_START;
 
-	columnStart = 0 as const;
+	columnStart = COLUMN_START;
 
 	nodeTypeKey = 'kind';
 
