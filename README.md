@@ -44,9 +44,9 @@ export default defineConfig([
 
 💡 - Manually fixable by [editor suggestions](https://eslint.org/docs/latest/use/core-concepts#rule-suggestions).
 
-| Rule ID                  | Description                                         | 🔧  | 💡  |
-| ------------------------ | --------------------------------------------------- | --- | --- |
-| `php/eqeqeq`             | Require the use of `===` and `!==`                  |     |     |
-| `php/no-array-keyword`   | Disallow the use of the array keyword               | 🔧  |     |
-| `php/require-visibility` | Require visibility for class methods and properties |     | 💡  |
-| `php/no-assign-ref`      | Disallow assigning by reference                     |     | 💡  |
+| Rule ID                   | Description                                         | 🔧  | 💡  |
+| ------------------------- | --------------------------------------------------- | --- | --- |
+| `php/eqeqeq`              | Require the use of `===` and `!==`                  |     |     |
+| `php/no-array-keyword`    | Disallow the use of the array keyword               | 🔧  |     |
+| `php/require-visibility`  | Require visibility for class methods and properties |     | 💡  |
+| `php/disallow-references` | Disallow assigning by reference                     |     | 💡  |

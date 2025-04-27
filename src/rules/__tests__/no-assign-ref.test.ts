@@ -1,6 +1,6 @@
 import { RuleTester, type Rule } from 'eslint';
 import php from '../../index';
-import { noAssignRef } from '../no-assign-ref';
+import { disallowReferences } from '../disallow-references';
 
 const ruleTester = new RuleTester({
 	plugins: {
@@ -10,34 +10,88 @@ const ruleTester = new RuleTester({
 });
 
 // TODO: Fix the types.
-ruleTester.run('no-assign-ref', noAssignRef as unknown as Rule.RuleModule, {
-	valid: ['<?php $a = [];'],
-	invalid: [
-		{
-			code: '<?php $a = [1, 2, 3]; $my_var = &$a;',
-			errors: [
-				{
-					messageId: 'noAssignRef',
-					line: 1,
-					column: 23,
-					endLine: 1,
-					endColumn: 37,
-				},
-			],
-			output: '<?php $a = [1, 2, 3]; $my_var = $a;',
-		},
-		{
-			code: '<?php function passByRef(&$var) { return []; }',
-			errors: [
-				{
-					messageId: 'noAssignRef',
-					line: 1,
-					column: 16,
-					endLine: 1,
-					endColumn: 31,
-				},
-			],
-			output: '<?php function passByRef($var) { return []; }',
-		},
-	],
-});
+ruleTester.run(
+	'disallow-references',
+	disallowReferences as unknown as Rule.RuleModule,
+	{
+		valid: [
+			'<?php $a = [];',
+			'<?php function foo() {}',
+			'<?php function foo($var) {}',
+		],
+		invalid: [
+			{
+				code: '<?php $a = [1, 2, 3]; $my_var = &$a;',
+				errors: [
+					{
+						messageId: 'noAssignRef',
+						line: 1,
+						column: 23,
+						endLine: 1,
+						endColumn: 37,
+						suggestions: [
+							{
+								desc: 'Remove reference assignment',
+								output: '<?php $a = [1, 2, 3]; $my_var = $a;',
+							},
+						],
+					},
+				],
+			},
+			{
+				code: '<?php function passByRef(&$var) { return []; }',
+				errors: [
+					{
+						messageId: 'noAssignRef',
+						line: 1,
+						column: 26,
+						endLine: 1,
+						endColumn: 31,
+						suggestions: [
+							{
+								desc: 'Remove reference assignment',
+								output: '<?php function passByRef($var) { return []; }',
+							},
+						],
+					},
+				],
+			},
+			{
+				code: '<?php function &returnByRef($var) { return []; }',
+				errors: [
+					{
+						messageId: 'noAssignRef',
+						line: 1,
+						column: 7,
+						endLine: 1,
+						endColumn: 49,
+						suggestions: [
+							{
+								desc: 'Remove reference assignment',
+								output: '<?php function returnByRef($var) { return []; }',
+							},
+						],
+					},
+				],
+			},
+			{
+				code: '<?php $useByRef = function() use(&$var) {};',
+				errors: [
+					{
+						messageId: 'noAssignRef',
+						line: 1,
+						column: 34,
+						endLine: 1,
+						endColumn: 39,
+						suggestions: [
+							{
+								desc: 'Remove reference assignment',
+								output: '<?php $useByRef = function() use($var) {};',
+							},
+						],
+					},
+				],
+			},
+		],
+	},
+);

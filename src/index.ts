@@ -3,7 +3,7 @@ import { PHPLanguage } from './language/php-language';
 
 import { eqeqeq } from './rules/eqeqeq';
 import { noArrayKeyword } from './rules/no-array-keyword';
-import { noAssignRef } from './rules/no-assign-ref';
+import { disallowReferences } from './rules/disallow-references';
 import { requireVisibility } from './rules/require-visibility';
 
 const plugin = {
@@ -15,9 +15,9 @@ const plugin = {
 		php: new PHPLanguage(),
 	},
 	rules: {
+		'disallow-references': disallowReferences,
 		eqeqeq,
 		'no-array-keyword': noArrayKeyword,
-		'no-assign-ref': noAssignRef,
 		'require-visibility': requireVisibility,
 	},
 } satisfies ESLint.Plugin;
