@@ -1,9 +1,9 @@
 import { ESLint } from 'eslint';
 import { PHPLanguage } from './language/php-language';
 
+import { disallowReferences } from './rules/disallow-references';
 import { eqeqeq } from './rules/eqeqeq';
 import { noArrayKeyword } from './rules/no-array-keyword';
-import { disallowReferences } from './rules/disallow-references';
 import { requireVisibility } from './rules/require-visibility';
 
 const plugin = {

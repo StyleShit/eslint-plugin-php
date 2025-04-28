@@ -1,42 +1,52 @@
 import { createRule } from '../utils/create-rule';
 
-type MessageIds = 'noAssignRef' | 'noAssignRefFix';
+type MessageIds = 'disallowReferences' | 'removeAmp';
 type Options = [];
 
 export const disallowReferences = createRule<MessageIds, Options>({
 	meta: {
-		type: 'layout',
+		type: 'suggestion',
 		fixable: 'code',
 		hasSuggestions: true,
 		docs: {
-			description: 'Disallow assigning by reference',
+			description: 'Disallow the use of references',
 		},
 		messages: {
-			noAssignRef: 'Assigning by reference is not allowed.',
-			noAssignRefFix: 'Remove the reference operator (&).',
+			disallowReferences: 'Do not use references (&).',
+			removeAmp: 'Remove the reference operator (&).',
 		},
 		schema: [],
 	},
 
 	create(context) {
 		return {
-			'assignref, parameter[byref="true"], function[byref="true"], variable[byref="true"]'(
+			'assignref > .right, parameter[byref="true"], function[byref="true"] > .name, variable[byref="true"]'(
 				node,
 			) {
+				const ampKeyWord = context.sourceCode.findClosestKeyword(
+					node,
+					'&',
+				);
+
+				if (!ampKeyWord) {
+					return;
+				}
+
 				context.report({
 					node,
-					messageId: 'noAssignRef',
+					loc: {
+						start: ampKeyWord.start,
+						end: context.sourceCode.getLoc(node).end,
+					},
+					messageId: 'disallowReferences',
 					suggest: [
 						{
-							messageId: 'noAssignRefFix',
+							messageId: 'removeAmp',
 							fix(fixer) {
-								const nodeText =
-									context.sourceCode.getText(node);
-
-								return fixer.replaceText(
-									node,
-									nodeText.replace(/&/g, ''),
-								);
+								return fixer.removeRange([
+									ampKeyWord.start.offset,
+									ampKeyWord.end.offset,
+								]);
 							},
 						},
 					],

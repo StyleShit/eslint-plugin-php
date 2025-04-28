@@ -46,7 +46,7 @@ export default defineConfig([
 
 | Rule ID                   | Description                                         | 🔧  | 💡  |
 | ------------------------- | --------------------------------------------------- | --- | --- |
+| `php/disallow-references` | Disallow the use of references                      |     | 💡  |
 | `php/eqeqeq`              | Require the use of `===` and `!==`                  |     |     |
 | `php/no-array-keyword`    | Disallow the use of the array keyword               | 🔧  |     |
 | `php/require-visibility`  | Require visibility for class methods and properties |     | 💡  |
-| `php/disallow-references` | Disallow assigning by reference                     |     | 💡  |

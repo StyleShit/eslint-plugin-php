@@ -15,23 +15,23 @@ ruleTester.run(
 	disallowReferences as unknown as Rule.RuleModule,
 	{
 		valid: [
-			'<?php $a = [];',
-			'<?php function foo() {}',
-			'<?php function foo($var) {}',
+			'<?php $a = [1, 2, 3]; $my_var = $a;',
+			'<?php function myFunc($var) { return []; }',
+			'<?php $used = function() use($var) {};',
 		],
 		invalid: [
 			{
 				code: '<?php $a = [1, 2, 3]; $my_var = &$a;',
 				errors: [
 					{
-						messageId: 'noAssignRef',
+						messageId: 'disallowReferences',
 						line: 1,
-						column: 23,
+						column: 33,
 						endLine: 1,
-						endColumn: 37,
+						endColumn: 36,
 						suggestions: [
 							{
-								desc: 'Remove the reference operator (&).',
+								messageId: 'removeAmp',
 								output: '<?php $a = [1, 2, 3]; $my_var = $a;',
 							},
 						],
@@ -39,54 +39,54 @@ ruleTester.run(
 				],
 			},
 			{
-				code: '<?php function passByRef(&$var) { return []; }',
+				code: '<?php function myFunc(&$var) { return []; }',
 				errors: [
 					{
-						messageId: 'noAssignRef',
+						messageId: 'disallowReferences',
 						line: 1,
-						column: 26,
+						column: 23,
 						endLine: 1,
-						endColumn: 31,
+						endColumn: 28,
 						suggestions: [
 							{
-								desc: 'Remove the reference operator (&).',
-								output: '<?php function passByRef($var) { return []; }',
+								messageId: 'removeAmp',
+								output: '<?php function myFunc($var) { return []; }',
 							},
 						],
 					},
 				],
 			},
 			{
-				code: '<?php function &returnByRef($var) { return []; }',
+				code: '<?php function &myFunc($var) { return []; }',
 				errors: [
 					{
-						messageId: 'noAssignRef',
+						messageId: 'disallowReferences',
 						line: 1,
-						column: 7,
+						column: 16,
 						endLine: 1,
-						endColumn: 49,
+						endColumn: 23,
 						suggestions: [
 							{
-								desc: 'Remove the reference operator (&).',
-								output: '<?php function returnByRef($var) { return []; }',
+								messageId: 'removeAmp',
+								output: '<?php function myFunc($var) { return []; }',
 							},
 						],
 					},
 				],
 			},
 			{
-				code: '<?php $useByRef = function() use(&$var) {};',
+				code: '<?php $used = function() use(&$var) {};',
 				errors: [
 					{
-						messageId: 'noAssignRef',
+						messageId: 'disallowReferences',
 						line: 1,
-						column: 34,
+						column: 30,
 						endLine: 1,
-						endColumn: 39,
+						endColumn: 35,
 						suggestions: [
 							{
-								desc: 'Remove the reference operator (&).',
-								output: '<?php $useByRef = function() use($var) {};',
+								messageId: 'removeAmp',
+								output: '<?php $used = function() use($var) {};',
 							},
 						],
 					},
