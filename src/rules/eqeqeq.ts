@@ -6,7 +6,7 @@ type Options = [];
 
 export const eqeqeq = createRule<MessageIds, Options>({
 	meta: {
-		type: 'layout',
+		type: 'suggestion',
 		fixable: 'code',
 		docs: {
 			description: 'Require the use of `===` and `!==`',
