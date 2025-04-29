@@ -1,6 +1,7 @@
 import { ESLint } from 'eslint';
 import { PHPLanguage } from './language/php-language';
 
+import { disallowReferences } from './rules/disallow-references';
 import { eqeqeq } from './rules/eqeqeq';
 import { noArrayKeyword } from './rules/no-array-keyword';
 import { requireVisibility } from './rules/require-visibility';
@@ -14,6 +15,7 @@ const plugin = {
 		php: new PHPLanguage(),
 	},
 	rules: {
+		'disallow-references': disallowReferences,
 		eqeqeq,
 		'no-array-keyword': noArrayKeyword,
 		'require-visibility': requireVisibility,
