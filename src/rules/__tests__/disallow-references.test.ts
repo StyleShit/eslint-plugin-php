@@ -18,6 +18,7 @@ ruleTester.run(
 			'<?php $a = [1, 2, 3]; $my_var = $a;',
 			'<?php function myFunc($var) { return []; }',
 			'<?php $used = function() use($var) {};',
+			'<?php $fn = function () { return $a; };',
 		],
 		invalid: [
 			{
@@ -87,6 +88,42 @@ ruleTester.run(
 							{
 								messageId: 'removeAmp',
 								output: '<?php $used = function() use($var) {};',
+							},
+						],
+					},
+				],
+			},
+			{
+				code: '<?php $fn = function &() { return $a; };',
+				errors: [
+					{
+						messageId: 'disallowReferences',
+						line: 1,
+						column: 22,
+						endLine: 1,
+						endColumn: 40,
+						suggestions: [
+							{
+								messageId: 'removeAmp',
+								output: '<?php $fn = function () { return $a; };',
+							},
+						],
+					},
+				],
+			},
+			{
+				code: '<?php class A { private function &test2($a) {} }',
+				errors: [
+					{
+						messageId: 'disallowReferences',
+						line: 1,
+						column: 34,
+						endLine: 1,
+						endColumn: 40,
+						suggestions: [
+							{
+								messageId: 'removeAmp',
+								output: '<?php class A { private function test2($a) {} }',
 							},
 						],
 					},
