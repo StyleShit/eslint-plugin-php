@@ -5,7 +5,7 @@ type Options = [];
 
 export const noArrayKeyword = createRule<MessageIds, Options>({
 	meta: {
-		type: 'layout',
+		type: 'suggestion',
 		fixable: 'code',
 		docs: {
 			description: 'disallow the use of the array keyword',
