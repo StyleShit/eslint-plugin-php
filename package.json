@@ -40,7 +40,8 @@
 		"format": "prettier --write ./",
 		"format:check": "prettier --check ./",
 		"build": "tsup",
-		"release": "npm run build && changeset publish"
+		"release": "npm run build && changeset publish",
+		"playground": "eslint ./playground --config=eslint.config.playground.mjs"
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.27.7",

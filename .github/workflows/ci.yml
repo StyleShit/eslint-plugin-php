@@ -23,15 +23,6 @@ jobs:
             - name: Install Deps
               run: npm ci
 
-            - name: Run Lint
-              run: npm run lint
-
-            - name: Run Format
-              run: npm run format:check
-
-            - name: Run Test
-              run: npm run test:coverage
-
             - name: Cache build
               id: cache-build
               uses: actions/cache@v4
@@ -47,3 +38,12 @@ jobs:
 
             - name: Run Build
               run: npm run build
+
+            - name: Run Lint
+              run: npm run lint
+
+            - name: Run Format
+              run: npm run format:check
+
+            - name: Run Test
+              run: npm run test:coverage
