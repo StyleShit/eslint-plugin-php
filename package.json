@@ -39,6 +39,7 @@
 		"lint": "concurrently -n eslint,tsc -c magenta,blue 'eslint ./' 'tsc'",
 		"format": "prettier --write ./",
 		"format:check": "prettier --check ./",
+		"spell-check": "cspell . --quiet",
 		"build": "tsup",
 		"release": "npm run build && changeset publish",
 		"playground": "eslint ./playground --config=eslint.config.playground.mjs"
@@ -49,6 +50,7 @@
 		"@types/node": "^22.4.1",
 		"@vitest/coverage-v8": "^2.0.5",
 		"concurrently": "^8.2.2",
+		"cspell": "^8.19.3",
 		"eslint": "^9.24.0",
 		"eslint-plugin-eslint-plugin": "^6.4.0",
 		"globals": "^15.9.0",
