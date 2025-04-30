@@ -1,0 +1,29 @@
+{
+	"$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+	"words": [
+		"commentblock",
+		"commentline",
+		"classconstant",
+		"propertystatement",
+		"assignref"
+	],
+	"enableGlobDot": true,
+	"ignorePaths": [
+		".git",
+		".github",
+		".idea",
+		".vscode",
+		".cspell",
+		".turbo",
+		".DS_Store",
+		"coverage",
+		"**/dist/**",
+		"**/CHANGELOG.md",
+		"**/node_modules/**"
+	],
+	"cache": {
+		"useCache": true,
+		"cacheLocation": "./.cspell/.cspellcache",
+		"cacheStrategy": "content"
+	}
+}
