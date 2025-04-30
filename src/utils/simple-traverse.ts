@@ -1,4 +1,4 @@
-import { Node } from 'php-parser';
+import { type Node } from 'php-parser';
 
 type Visitor = (
 	current: { node: Node; parent?: Node },

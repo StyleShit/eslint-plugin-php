@@ -1,4 +1,4 @@
-import { ESLint } from 'eslint';
+import { type ESLint } from 'eslint';
 import { PHPLanguage } from './language/php-language';
 
 import { disallowReferences } from './rules/disallow-references';
