@@ -33,18 +33,16 @@ jobs:
 
             - run: npm ci
 
-            - name: Cache build
-              id: cache-build
-              uses: actions/cache@v4
-              env:
-                  cache-name: cache-build
-              with:
-                  path: ./dist
-                  key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-build-${{ env.cache-name }}-
-                      ${{ runner.os }}-build-
-                      ${{ runner.os }}-
+            # See https://github.com/actions/checkout/blob/85e6279cec87321a52edac9c87bce653a07cf6c2/README.md#push-a-commit-using-the-built-in-token
+            - name: Config git user
+              run: |
+                  git config --global user.name "StyleShit"
+                  git config --global user.email "32631382+StyleShit@users.noreply.github.com"
+
+            - name: Show git user
+              run: |
+                  git config --global --get user.name
+                  git config --global --get user.email
 
             - name: Create release PR or publish
               id: changesets
@@ -53,6 +51,7 @@ jobs:
                   publish: npm run release
                   commit: 'chore(release): publish'
                   title: 'chore(release): publish'
+                  setupGitUser: false
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.CHANGESETS_TOKEN }}
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
