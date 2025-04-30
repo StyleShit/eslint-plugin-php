@@ -20,9 +20,7 @@ export const disallowReferences = createRule<MessageIds, Options>({
 
 	create(context) {
 		return {
-			'assignref > .right, parameter[byref="true"], function[byref="true"] > .name, variable[byref="true"]'(
-				node,
-			) {
+			[selectors.join(', ')](node) {
 				const ampKeyWord = context.sourceCode.findClosestKeyword(
 					node,
 					'&',
@@ -55,3 +53,12 @@ export const disallowReferences = createRule<MessageIds, Options>({
 		};
 	},
 });
+
+const selectors = [
+	'assignref > .right',
+	'closure[byref="true"]',
+	'variable[byref="true"]',
+	'parameter[byref="true"]',
+	'method[byref="true"] > .name',
+	'function[byref="true"] > .name',
+];
