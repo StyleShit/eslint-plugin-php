@@ -5,6 +5,7 @@ import { eqeqeq } from './rules/eqeqeq';
 import { noArrayKeyword } from './rules/no-array-keyword';
 import { requireVisibility } from './rules/require-visibility';
 
+import { recommended } from './configs/recommended';
 import { PHPLanguage } from './language/php-language';
 
 const plugin = {
@@ -15,6 +16,9 @@ const plugin = {
 	languages: {
 		php: new PHPLanguage(),
 	},
+	configs: {
+		recommended,
+	},
 	rules: {
 		'disallow-references': disallowReferences,
 		eqeqeq,
@@ -22,5 +26,12 @@ const plugin = {
 		'require-visibility': requireVisibility,
 	},
 } satisfies ESLint.Plugin;
+
+// The configs require circular references to the plugin, which can't be done in the config definition.
+Object.values(plugin.configs).forEach((config) => {
+	config.plugins ??= {};
+
+	config.plugins.php = plugin;
+});
 
 export default plugin;

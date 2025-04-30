@@ -38,18 +38,35 @@ export default defineConfig([
 ]);
 ```
 
+You can also use the `recommended` configuration to enable all recommended rules:
+
+```js
+// eslint.config.mjs
+import php from 'eslint-plugin-php';
+import { defineConfig } from 'eslint/config';
+
+export default defineConfig([
+  {
+    files: ['./**/*.php'],
+    ...php.configs.recommended,
+  },
+]);
+```
+
 ## Available Rules
 
 🔧 - Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/latest/use/command-line-interface#--fix).
 
 💡 - Manually fixable by [editor suggestions](https://eslint.org/docs/latest/use/core-concepts#rule-suggestions).
 
-| Rule ID                   | Description                                         | 🔧  | 💡  |
-| ------------------------- | --------------------------------------------------- | --- | --- |
-| `php/disallow-references` | Disallow the use of references                      |     | 💡  |
-| `php/eqeqeq`              | Require the use of `===` and `!==`                  |     |     |
-| `php/no-array-keyword`    | Disallow the use of the array keyword               | 🔧  |     |
-| `php/require-visibility`  | Require visibility for class methods and properties |     | 💡  |
+✅ - Enabled in the recommended configuration.
+
+| Rule ID                   | Description                                         | 🔧  | 💡  | ✅  |
+| ------------------------- | --------------------------------------------------- | --- | --- | --- |
+| `php/disallow-references` | Disallow the use of references                      |     | 💡  | ✅  |
+| `php/eqeqeq`              | Require the use of `===` and `!==`                  |     |     | ✅  |
+| `php/no-array-keyword`    | Disallow the use of the array keyword               | 🔧  |     | ✅  |
+| `php/require-visibility`  | Require visibility for class methods and properties |     | 💡  | ✅  |
 
 ## Development
 

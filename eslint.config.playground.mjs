@@ -22,17 +22,9 @@ if (phpFiles.length === 0) {
 
 const php = (await import('./dist/index.js')).default;
 
-export default defineConfig({
-	files: ['./**/*.php'],
-	plugins: {
-		php,
+export default defineConfig([
+	{
+		files: ['./**/*.php'],
+		...php.configs.recommended,
 	},
-	language: 'php/php',
-	rules: {
-		// TODO: Use recommended config.
-		'php/eqeqeq': 'error',
-		'php/disallow-references': 'error',
-		'php/no-array-keyword': 'error',
-		'php/require-visibility': 'error',
-	},
-});
+]);
