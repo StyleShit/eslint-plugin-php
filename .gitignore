@@ -12,6 +12,8 @@ coverage
 dist
 dist-ssr
 *.local
+playground/*
+!playground/.gitkeep
 
 # Editor directories and files
 .vscode/*
