@@ -1,0 +1,34 @@
+name: PR Name Linter
+on:
+    pull_request:
+        types: ['opened', 'edited', 'reopened', 'synchronize']
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    name_lint:
+        name: Lint
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout source code
+              uses: actions/checkout@v4
+
+            - name: Install Node.js
+              uses: actions/setup-node@v4
+              with:
+                  cache: 'npm'
+                  node-version: 20.x
+
+            - name: Install Commitlint
+              run: npm i -g @commitlint/cli @commitlint/config-conventional
+
+            - name: Output commitlint config
+              run: |
+                  echo "export default { extends: ['@commitlint/config-conventional'] };" > commitlint.config.js
+
+            - name: Run PR name linter
+              env:
+                  TITLE: ${{ github.event.pull_request.title }}
+              run: echo "$TITLE" | npx commitlint
