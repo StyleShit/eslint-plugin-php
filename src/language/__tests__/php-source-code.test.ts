@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { PHPSourceCode } from '../php-source-code';
 import { PHPLanguage } from '../php-language';
-import { File } from '@eslint/core';
-import { Class, ClassConstant } from 'php-parser';
+import { type File } from '@eslint/core';
+import { type Class, type ClassConstant } from 'php-parser';
 
 describe('PHPSourceCode', () => {
 	it('should return the closest keyword', () => {

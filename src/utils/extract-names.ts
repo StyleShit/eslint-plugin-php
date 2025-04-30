@@ -1,4 +1,4 @@
-import { Identifier } from 'php-parser';
+import { type Identifier } from 'php-parser';
 
 type Nameable = {
 	name: string | Identifier;
