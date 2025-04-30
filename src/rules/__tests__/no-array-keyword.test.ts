@@ -1,4 +1,4 @@
-import { type Rule,RuleTester } from 'eslint';
+import { type Rule, RuleTester } from 'eslint';
 
 import php from '../../index';
 import { noArrayKeyword } from '../no-array-keyword';
