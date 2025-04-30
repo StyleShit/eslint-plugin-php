@@ -16,11 +16,6 @@ jobs:
 
         if: startsWith(github.repository, 'StyleShit/')
 
-        permissions:
-            contents: write # to create release (changesets/action)
-            issues: write # to post issue comments (changesets/action)
-            pull-requests: write # to create pull request (changesets/action)
-
         steps:
             - uses: actions/checkout@v4
               with:
@@ -46,6 +41,12 @@ jobs:
                       ${{ runner.os }}-build-
                       ${{ runner.os }}-
 
+            # See https://github.com/actions/checkout/blob/85e6279cec87321a52edac9c87bce653a07cf6c2/README.md#push-a-commit-using-the-built-in-token
+            - name: Config git user
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
             - name: Create release PR or publish
               id: changesets
               uses: changesets/action@v1
@@ -54,5 +55,5 @@ jobs:
                   commit: 'chore(release): publish'
                   title: 'chore(release): publish'
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.CHANGESETS_TOKEN }}
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
