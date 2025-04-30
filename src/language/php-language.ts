@@ -1,5 +1,6 @@
-import type { File, Language, OkParseResult, ParseResult } from '@eslint/core';
 import { Engine, type Program } from 'php-parser';
+import type { File, Language, OkParseResult, ParseResult } from '@eslint/core';
+
 import { PHPSourceCode } from './php-source-code';
 
 export const LINE_START = 1 as const;

@@ -1,11 +1,12 @@
 import type { Location, Node } from 'php-parser';
-import { simpleTraverse } from '../utils/simple-traverse';
+import type { Position } from '@eslint/core';
 import {
 	type SourceRange,
 	type TraversalStep,
 	VisitNodeStep,
 } from '@eslint/plugin-kit';
-import type { Position } from '@eslint/core';
+
+import { simpleTraverse } from '../utils/simple-traverse';
 import { LINE_START } from './php-language';
 import { TextSourceCodeWithComments } from './text-source-code-with-comments';
 

@@ -1,4 +1,5 @@
-import { RuleTester, type Rule } from 'eslint';
+import { type Rule,RuleTester } from 'eslint';
+
 import php from '../../index';
 import { eqeqeq } from '../eqeqeq';
 

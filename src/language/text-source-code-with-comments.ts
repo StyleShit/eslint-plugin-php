@@ -1,3 +1,4 @@
+import type { Comment, Location, Program } from 'php-parser';
 import type {
 	DirectiveType,
 	FileProblem,
@@ -9,7 +10,6 @@ import {
 	Directive,
 	TextSourceCodeBase,
 } from '@eslint/plugin-kit';
-import type { Comment, Location, Program } from 'php-parser';
 
 type NormalizedComment = {
 	value: string;
