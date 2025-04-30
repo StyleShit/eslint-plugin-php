@@ -2,4 +2,4 @@
 'eslint-plugin-php': patch
 ---
 
-Add missing usecases to `disallow-references` rule
+Add missing use-cases to `disallow-references` rule

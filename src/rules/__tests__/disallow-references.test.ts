@@ -19,7 +19,7 @@ ruleTester.run(
 			'<?php function myFunc($var) { return []; }',
 			'<?php $used = function() use($var) {};',
 			'<?php $fn = function () { return $a; };',
-			'<?php class A { private function test2($a) {} }'
+			'<?php class A { private function test2($a) {} }',
 		],
 		invalid: [
 			{
