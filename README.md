@@ -68,6 +68,6 @@ export default defineConfig([
 | `php/no-array-keyword`    | Disallow the use of the array keyword               | 🔧  |     | ✅  |
 | `php/require-visibility`  | Require visibility for class methods and properties |     | 💡  | ✅  |
 
-## Development
+## Contributing
 
-Use `npm run playground` to lint local PHP files under the `playground` directory.
+Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) for more information.
