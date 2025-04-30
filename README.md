@@ -50,3 +50,7 @@ export default defineConfig([
 | `php/eqeqeq`              | Require the use of `===` and `!==`                  |     |     |
 | `php/no-array-keyword`    | Disallow the use of the array keyword               | 🔧  |     |
 | `php/require-visibility`  | Require visibility for class methods and properties |     | 💡  |
+
+## Development
+
+Use `npm run playground` to lint local PHP files under the `playground` directory.
