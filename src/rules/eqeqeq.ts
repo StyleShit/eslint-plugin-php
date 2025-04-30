@@ -1,4 +1,5 @@
 import type { Bin } from 'php-parser';
+
 import { createRule } from '../utils/create-rule';
 
 type MessageIds = 'unexpected';

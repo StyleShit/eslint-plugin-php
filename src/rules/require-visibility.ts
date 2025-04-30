@@ -1,6 +1,7 @@
+import type { ClassConstant, Method, PropertyStatement } from 'php-parser';
+
 import { createRule } from '../utils/create-rule';
 import { extractNames } from '../utils/extract-names';
-import type { ClassConstant, Method, PropertyStatement } from 'php-parser';
 
 type MessageIds =
 	| 'requireVisibilityForMethod'
