@@ -23,8 +23,6 @@ jobs:
 
         steps:
             - uses: actions/checkout@v4
-              with:
-                  fetch-depth: 0
 
             - uses: actions/setup-node@v4
               with:
@@ -33,18 +31,10 @@ jobs:
 
             - run: npm ci
 
-            - name: Cache build
-              id: cache-build
-              uses: actions/cache@v4
-              env:
-                  cache-name: cache-build
-              with:
-                  path: ./dist
-                  key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-                  restore-keys: |
-                      ${{ runner.os }}-build-${{ env.cache-name }}-
-                      ${{ runner.os }}-build-
-                      ${{ runner.os }}-
+            - name: Config git user
+              run: |
+                  git config --global user.name "${{ secrets.CHANGESETS_ACTOR_NAME }}"
+                  git config --global user.email "${{ secrets.CHANGESETS_ACTOR_EMAIL }}"
 
             - name: Create release PR or publish
               id: changesets
@@ -53,6 +43,7 @@ jobs:
                   publish: npm run release
                   commit: 'chore(release): publish'
                   title: 'chore(release): publish'
+                  setupGitUser: false
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.CHANGESETS_TOKEN }}
                   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
