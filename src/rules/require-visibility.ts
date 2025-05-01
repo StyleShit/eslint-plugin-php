@@ -3,19 +3,9 @@ import type { ClassConstant, Method, PropertyStatement } from 'php-parser';
 import { createRule } from '../utils/create-rule';
 import { extractNames } from '../utils/extract-names';
 
-type MessageIds =
-	| 'requireVisibilityForMethod'
-	| 'requireVisibilityForClassConstant'
-	| 'requireVisibilityForClassConstants'
-	| 'requireVisibilityForProperty'
-	| 'requireVisibilityForProperties'
-	| 'addVisibility';
-
-type Options = [];
-
 export const visibilityOptions = ['private', 'protected', 'public'];
 
-export const requireVisibility = createRule<MessageIds, Options>({
+export const requireVisibility = createRule({
 	meta: {
 		type: 'layout',
 		fixable: 'code',
@@ -46,9 +36,7 @@ export const requireVisibility = createRule<MessageIds, Options>({
 
 	create(context) {
 		return {
-			'method[visibility=""]'(_node) {
-				const node = _node as Method;
-
+			'method[visibility=""]'(node: Method) {
 				context.report({
 					node,
 					messageId: 'requireVisibilityForMethod',
@@ -73,9 +61,7 @@ export const requireVisibility = createRule<MessageIds, Options>({
 				});
 			},
 
-			'classconstant[visibility=""]'(_node) {
-				const node = _node as ClassConstant;
-
+			'classconstant[visibility=""]'(node: ClassConstant) {
 				const constKeywordLoc = context.sourceCode.findClosestKeyword(
 					node,
 					'const',
@@ -116,9 +102,7 @@ export const requireVisibility = createRule<MessageIds, Options>({
 				});
 			},
 
-			'propertystatement[visibility=""]'(_node) {
-				const node = _node as PropertyStatement;
-
+			'propertystatement[visibility=""]'(node: PropertyStatement) {
 				const propertiesNames = extractNames(node.properties);
 
 				context.report({

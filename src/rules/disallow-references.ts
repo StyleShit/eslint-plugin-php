@@ -1,9 +1,8 @@
+import { type Node } from 'php-parser';
+
 import { createRule } from '../utils/create-rule';
 
-type MessageIds = 'disallowReferences' | 'removeAmp';
-type Options = [];
-
-export const disallowReferences = createRule<MessageIds, Options>({
+export const disallowReferences = createRule({
 	meta: {
 		type: 'suggestion',
 		fixable: 'code',
@@ -20,7 +19,7 @@ export const disallowReferences = createRule<MessageIds, Options>({
 
 	create(context) {
 		return {
-			[selectors.join(', ')](node) {
+			[selectors.join(', ')](node: Node) {
 				const ampKeyWord = context.sourceCode.findClosestKeyword(
 					node,
 					'&',

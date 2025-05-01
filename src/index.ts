@@ -1,3 +1,5 @@
+import './types';
+
 import { type ESLint } from 'eslint';
 
 import { disallowReferences } from './rules/disallow-references';

@@ -1,24 +1,15 @@
-import type { Node } from 'php-parser';
-import type { RuleDefinition } from '@eslint/core';
-
-import type { PHPSourceCode } from '../language/php-source-code';
-
-type Rule<
-	TMessageIds extends string = string,
-	TOptions extends unknown[] = [],
-> = RuleDefinition<{
-	LangOptions: Record<string, unknown>;
-	Code: PHPSourceCode;
-	RuleOptions: TOptions;
-	Visitor: Record<string, (node: Node) => void>;
-	Node: Node;
-	MessageIds: TMessageIds;
-	ExtRuleDocs: unknown;
-}>;
+import { Rule, type RuleDefinition } from 'eslint';
+import RuleModule = Rule.RuleModule;
 
 export function createRule<
 	TMessageIds extends string,
 	TOptions extends unknown[],
->(ruleDefinition: Rule<TMessageIds, TOptions>) {
-	return ruleDefinition;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	TRuleVisitor extends Record<string, (...args: any[]) => void>,
+>(ruleDefinition: RuleDefinition<TMessageIds, TOptions, TRuleVisitor>) {
+	return {
+		meta: ruleDefinition.meta,
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
+		create: (context) => ruleDefinition.create(context as any),
+	} satisfies RuleModule;
 }

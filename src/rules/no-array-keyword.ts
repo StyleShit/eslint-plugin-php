@@ -1,9 +1,8 @@
+import { type Node } from 'php-parser';
+
 import { createRule } from '../utils/create-rule';
 
-type MessageIds = 'noArrayKeyword';
-type Options = [];
-
-export const noArrayKeyword = createRule<MessageIds, Options>({
+export const noArrayKeyword = createRule({
 	meta: {
 		type: 'suggestion',
 		fixable: 'code',
@@ -18,7 +17,7 @@ export const noArrayKeyword = createRule<MessageIds, Options>({
 
 	create(context) {
 		return {
-			'array[shortForm=false]'(node) {
+			'array[shortForm=false]'(node: Node) {
 				context.report({
 					node,
 					messageId: 'noArrayKeyword',

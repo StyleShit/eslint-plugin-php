@@ -1,17 +1,14 @@
-import { type Rule, RuleTester } from 'eslint';
+import { RuleTester } from 'eslint';
 
 import php from '../../index';
 import { eqeqeq } from '../eqeqeq';
 
 const ruleTester = new RuleTester({
-	plugins: {
-		php,
-	},
+	plugins: { php },
 	language: 'php/php',
 });
 
-// TODO: Fix the types.
-ruleTester.run('eqeqeq', eqeqeq as unknown as Rule.RuleModule, {
+ruleTester.run('eqeqeq', eqeqeq, {
 	valid: ['<?php $a === $b;', '<?php $a !== $b;'],
 	invalid: [
 		{
