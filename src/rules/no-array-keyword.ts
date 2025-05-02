@@ -1,3 +1,5 @@
+import { type Node } from 'php-parser';
+
 import { createRule } from '../utils/create-rule';
 
 type MessageIds = 'noArrayKeyword';
@@ -18,7 +20,7 @@ export const noArrayKeyword = createRule<MessageIds, Options>({
 
 	create(context) {
 		return {
-			'array[shortForm=false]'(node) {
+			'array[shortForm=false]'(node: Node) {
 				context.report({
 					node,
 					messageId: 'noArrayKeyword',

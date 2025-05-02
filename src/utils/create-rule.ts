@@ -1,24 +1,13 @@
-import type { Node } from 'php-parser';
-import type { RuleDefinition } from '@eslint/core';
-
-import type { PHPSourceCode } from '../language/php-source-code';
-
-type Rule<
-	TMessageIds extends string = string,
-	TOptions extends unknown[] = [],
-> = RuleDefinition<{
-	LangOptions: Record<string, unknown>;
-	Code: PHPSourceCode;
-	RuleOptions: TOptions;
-	Visitor: Record<string, (node: Node) => void>;
-	Node: Node;
-	MessageIds: TMessageIds;
-	ExtRuleDocs: unknown;
-}>;
+import { type Rule, type RuleDefinition } from 'eslint';
+import { type RuleVisitor } from '@eslint/core';
 
 export function createRule<
 	TMessageIds extends string,
 	TOptions extends unknown[],
->(ruleDefinition: Rule<TMessageIds, TOptions>) {
-	return ruleDefinition;
+	TRuleVisitor extends RuleVisitor = RuleVisitor,
+>(ruleDefinition: RuleDefinition<TMessageIds, TOptions, TRuleVisitor>) {
+	return {
+		meta: ruleDefinition.meta,
+		create: (context) => ruleDefinition.create(context as never),
+	} satisfies Rule.RuleModule;
 }

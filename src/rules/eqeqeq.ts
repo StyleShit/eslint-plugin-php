@@ -21,10 +21,7 @@ export const eqeqeq = createRule<MessageIds, Options>({
 
 	create(context) {
 		return {
-			"bin[type='=='], bin[type='!=']"(_node) {
-				// TODO: Fix the types.
-				const node = _node as Bin;
-
+			"bin[type='=='], bin[type='!=']"(node: Bin) {
 				context.report({
 					node,
 					messageId: 'unexpected',
