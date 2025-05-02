@@ -8,6 +8,7 @@ import {
 import type { PHPSourceCode } from './language/php-source-code';
 
 declare module 'eslint' {
+	// Augment ESLint's rule type to ensure it uses `php-parser`'s node types.
 	export interface RuleDefinition<
 		TMessageIds extends string = string,
 		TOptions extends unknown[] = [],
