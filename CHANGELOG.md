@@ -1,5 +1,19 @@
 # eslint-plugin-php
 
+## 0.1.0
+
+### Minor Changes
+
+- 58e504c: Add `disallow-references` rule
+- bd7e350: Add `PHPSourceCode.findClosestKeyword` util
+- 2ac36fb: Support eslint directives and inline configs
+- b233df9: Add `require-visibility` rule
+- 7e264d9: Add recommended config
+
+### Patch Changes
+
+- 5c0c1ba: Add missing use-cases to `disallow-references` rule
+
 ## 0.0.2
 
 ### Patch Changes
