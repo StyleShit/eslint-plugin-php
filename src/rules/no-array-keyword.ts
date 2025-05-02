@@ -2,7 +2,10 @@ import { type Node } from 'php-parser';
 
 import { createRule } from '../utils/create-rule';
 
-export const noArrayKeyword = createRule({
+type MessageIds = 'noArrayKeyword';
+type Options = [];
+
+export const noArrayKeyword = createRule<MessageIds, Options>({
 	meta: {
 		type: 'suggestion',
 		fixable: 'code',

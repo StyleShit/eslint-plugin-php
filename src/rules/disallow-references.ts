@@ -2,7 +2,10 @@ import { type Node } from 'php-parser';
 
 import { createRule } from '../utils/create-rule';
 
-export const disallowReferences = createRule({
+type MessageIds = 'disallowReferences' | 'removeAmp';
+type Options = [];
+
+export const disallowReferences = createRule<MessageIds, Options>({
 	meta: {
 		type: 'suggestion',
 		fixable: 'code',

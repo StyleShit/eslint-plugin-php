@@ -3,9 +3,19 @@ import type { ClassConstant, Method, PropertyStatement } from 'php-parser';
 import { createRule } from '../utils/create-rule';
 import { extractNames } from '../utils/extract-names';
 
+type MessageIds =
+	| 'requireVisibilityForMethod'
+	| 'requireVisibilityForClassConstant'
+	| 'requireVisibilityForClassConstants'
+	| 'requireVisibilityForProperty'
+	| 'requireVisibilityForProperties'
+	| 'addVisibility';
+
+type Options = [];
+
 export const visibilityOptions = ['private', 'protected', 'public'];
 
-export const requireVisibility = createRule({
+export const requireVisibility = createRule<MessageIds, Options>({
 	meta: {
 		type: 'layout',
 		fixable: 'code',

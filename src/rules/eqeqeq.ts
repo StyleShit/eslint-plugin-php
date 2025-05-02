@@ -2,7 +2,10 @@ import type { Bin } from 'php-parser';
 
 import { createRule } from '../utils/create-rule';
 
-export const eqeqeq = createRule({
+type MessageIds = 'unexpected';
+type Options = [];
+
+export const eqeqeq = createRule<MessageIds, Options>({
 	meta: {
 		type: 'suggestion',
 		fixable: 'code',
