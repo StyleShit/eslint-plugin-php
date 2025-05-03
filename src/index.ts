@@ -24,10 +24,10 @@ const plugin = {
 	},
 	rules: {
 		'disallow-references': disallowReferences,
+		eqeqeq,
 		'no-array-keyword': noArrayKeyword,
 		'require-types': requireTypes,
 		'require-visibility': requireVisibility,
-		eqeqeq,
 	},
 } satisfies ESLint.Plugin;
 
