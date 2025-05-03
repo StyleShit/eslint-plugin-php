@@ -5,7 +5,9 @@ type Nameable = {
 };
 
 export function extractNames(names: Nameable[]) {
-	return names.map(({ name }) =>
-		typeof name === 'string' ? name : name.name,
-	);
+	return names.map(extractName);
+}
+
+export function extractName(name: Nameable) {
+	return typeof name.name === 'string' ? name.name : name.name.name;
 }
