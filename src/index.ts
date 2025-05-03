@@ -5,6 +5,7 @@ import { type ESLint } from 'eslint';
 import { disallowReferences } from './rules/disallow-references';
 import { eqeqeq } from './rules/eqeqeq';
 import { noArrayKeyword } from './rules/no-array-keyword';
+import { requireTypeAnnotations } from './rules/require-type-annotations';
 import { requireVisibility } from './rules/require-visibility';
 
 import { recommended } from './configs/recommended';
@@ -25,6 +26,7 @@ const plugin = {
 		'disallow-references': disallowReferences,
 		eqeqeq,
 		'no-array-keyword': noArrayKeyword,
+		'require-type-annotations': requireTypeAnnotations,
 		'require-visibility': requireVisibility,
 	},
 } satisfies ESLint.Plugin;
