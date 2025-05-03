@@ -69,7 +69,7 @@ export const requireTypeAnnotations = createRule<MessageIds, Options>({
 					data: { name: extractName(node) },
 				});
 			},
-			'closure[type=null]'(node: Closure) {
+			'closure[type=null], arrowfunc[type=null]'(node: Closure) {
 				context.report({
 					node,
 					messageId: 'requireTypesForClosureReturnType',

@@ -109,5 +109,29 @@ ruleTester.run('require-type-annotations', requireTypeAnnotations, {
 				},
 			],
 		},
+		{
+			code: '<?php array_map(fn() => 1, []);',
+			errors: [
+				{
+					messageId: 'requireTypesForClosureReturnType',
+					line: 1,
+					column: 17,
+					endLine: 1,
+					endColumn: 26,
+				},
+			],
+		},
+		{
+			code: '<?php array_map(fn( $param ): int => 1, []);',
+			errors: [
+				{
+					messageId: 'requireTypesForParameter',
+					line: 1,
+					column: 21,
+					endLine: 1,
+					endColumn: 27,
+				},
+			],
+		},
 	],
 });
