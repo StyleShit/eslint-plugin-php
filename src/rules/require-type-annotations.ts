@@ -9,7 +9,16 @@ import {
 import { createRule } from '../utils/create-rule';
 import { extractName } from '../utils/extract-names';
 
-export const requireTypes = createRule({
+type MessageIds =
+	| 'requireTypesForProperty'
+	| 'requireTypesForParameter'
+	| 'requireTypesForMethodReturnType'
+	| 'requireTypesForFunctionReturnType'
+	| 'requireTypesForClosureReturnType';
+
+type Options = [];
+
+export const requireTypeAnnotations = createRule<MessageIds, Options>({
 	meta: {
 		type: 'suggestion',
 		docs: {
@@ -22,11 +31,11 @@ export const requireTypes = createRule({
 			requireTypesForParameter:
 				"Type must be declared on parameter '{{name}}'.",
 			requireTypesForMethodReturnType:
-				"Type must be declared on method return type '{{name}}'.",
+				"Return type must be declared on method '{{name}}'.",
 			requireTypesForFunctionReturnType:
-				"Type must be declared on function return type '{{name}}'.",
+				"Return type must be declared on function '{{name}}'.",
 			requireTypesForClosureReturnType:
-				'Type must be declared on closure return type.',
+				'Return type must be declared on closure.',
 		},
 		schema: [],
 	},

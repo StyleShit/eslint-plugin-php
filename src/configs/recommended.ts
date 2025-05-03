@@ -6,7 +6,7 @@ export const recommended: Linter.Config = {
 		'php/disallow-references': 'error',
 		'php/eqeqeq': 'error',
 		'php/no-array-keyword': 'error',
-		'php/require-types': 'warn',
+		'php/require-type-annotations': 'warn',
 		'php/require-visibility': 'error',
 	},
 };

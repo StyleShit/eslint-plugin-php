@@ -1,14 +1,14 @@
 import { RuleTester } from 'eslint';
 
 import php from '../../index';
-import { requireTypes } from '../require-types';
+import { requireTypeAnnotations } from '../require-type-annotations';
 
 const ruleTester = new RuleTester({
 	plugins: { php },
 	language: 'php/php',
 });
 
-ruleTester.run('require-types', requireTypes, {
+ruleTester.run('require-type-annotations', requireTypeAnnotations, {
 	valid: [
 		'<?php class Foo { public int $a = 1; }',
 		'<?php class Foo { public function bar(): int {} }',
