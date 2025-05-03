@@ -5,7 +5,8 @@
 		"commentline",
 		"classconstant",
 		"propertystatement",
-		"assignref"
+		"assignref",
+		"arrowfunc"
 	],
 	"enableGlobDot": true,
 	"ignorePaths": [
