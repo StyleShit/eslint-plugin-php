@@ -18,6 +18,8 @@ ruleTester.run('require-type-annotations', requireTypeAnnotations, {
 		'<?php function foo( int $param ): int {}',
 		'<?php array_map(function(): int {}, []);',
 		'<?php array_map(function( int $param ): int {}, []);',
+		'<?php array_map(fn(): int => 1, []);',
+		'<?php array_map(fn( int $param ): int => 1, []);',
 	],
 	invalid: [
 		{
