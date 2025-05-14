@@ -1,4 +1,5 @@
 import {
+	type ArrowFunc,
 	type Closure,
 	type Function,
 	type Method,
@@ -57,21 +58,37 @@ export const requireTypeAnnotations = createRule<MessageIds, Options>({
 			},
 			'method[type=null][name.name!=__construct]'(node: Method) {
 				context.report({
-					node,
+					node: typeof node.name === 'string' ? node : node.name,
 					messageId: 'requireTypesForMethodReturnType',
 					data: { name: extractName(node) },
 				});
 			},
 			'function[type=null]'(node: Function) {
 				context.report({
-					node,
+					node: typeof node.name === 'string' ? node : node.name,
 					messageId: 'requireTypesForFunctionReturnType',
 					data: { name: extractName(node) },
 				});
 			},
-			'closure[type=null], arrowfunc[type=null]'(node: Closure) {
+			'closure[type=null], arrowfunc[type=null]'(
+				node: Closure | ArrowFunc,
+			) {
+				const nodeLoc = context.sourceCode.getLoc(node);
+
+				const endColumn =
+					node.kind === 'closure'
+						? nodeLoc.start.column + 'function'.length
+						: nodeLoc.start.column + 'fn'.length;
+
 				context.report({
 					node,
+					loc: {
+						start: nodeLoc.start,
+						end: {
+							line: nodeLoc.start.line,
+							column: endColumn,
+						},
+					},
 					messageId: 'requireTypesForClosureReturnType',
 				});
 			},
