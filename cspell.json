@@ -1,11 +1,12 @@
 {
 	"$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
 	"words": [
+		"arrowfunc",
+		"assignref",
+		"classconstant",
 		"commentblock",
 		"commentline",
-		"classconstant",
-		"propertystatement",
-		"assignref"
+		"propertystatement"
 	],
 	"enableGlobDot": true,
 	"ignorePaths": [
