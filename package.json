@@ -62,8 +62,8 @@
 		"vitest": "^2.0.5"
 	},
 	"dependencies": {
-		"@eslint/core": "^0.13.0",
-		"@eslint/plugin-kit": "^0.2.8",
+		"@eslint/core": "^0.14.0",
+		"@eslint/plugin-kit": "^0.3.1",
 		"php-parser": "^3.2.3"
 	},
 	"peerDependencies": {
