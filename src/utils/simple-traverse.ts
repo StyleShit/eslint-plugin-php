@@ -5,7 +5,19 @@ type Visitor = (
 	phase: 'enter' | 'exit',
 ) => void;
 
-export function simpleTraverse(node: Node, visitor: Visitor, parent?: Node) {
+export function simpleTraverse(
+	node: Node | Node[],
+	visitor: Visitor,
+	parent?: Node,
+) {
+	if (Array.isArray(node)) {
+		node.forEach((child) => {
+			simpleTraverse(child, visitor, parent);
+		});
+
+		return;
+	}
+
 	visitor({ node, parent }, 'enter');
 
 	Object.values(node).forEach((value) => {
@@ -31,7 +43,9 @@ function isNode(node: unknown): node is Node {
 	return (
 		typeof node === 'object' &&
 		node !== null &&
-		'kind' in node &&
-		'loc' in node
+		'nodeType' in node &&
+		'attributes' in node &&
+		typeof node.attributes === 'object' &&
+		node.attributes !== null
 	);
 }

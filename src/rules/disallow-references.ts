@@ -57,10 +57,10 @@ export const disallowReferences = createRule<MessageIds, Options>({
 });
 
 const selectors = [
-	'assignref > .right',
-	'closure[byref="true"]',
-	'variable[byref="true"]',
-	'parameter[byref="true"]',
-	'method[byref="true"] > .name',
-	'function[byref="true"] > .name',
+	'Expr_AssignRef > .expr',
+	'Param[byRef=true]',
+	'Stmt_Function[byRef=true] > .name',
+	'ClosureUse[byRef=true]',
+	'Expr_Closure[byRef=true]',
+	'Stmt_ClassMethod[byRef=true] > .name',
 ];

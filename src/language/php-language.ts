@@ -1,6 +1,7 @@
 import { Engine, type Program } from 'php-parser';
 import type { File, Language, OkParseResult, ParseResult } from '@eslint/core';
 
+import { parse } from '../utils/parse';
 import { PHPSourceCode } from './php-source-code';
 
 export const LINE_START = 1 as const;
@@ -13,7 +14,7 @@ export class PHPLanguage implements Language {
 
 	columnStart = COLUMN_START;
 
-	nodeTypeKey = 'kind';
+	nodeTypeKey = 'nodeType';
 
 	#engine: Engine;
 
@@ -46,7 +47,9 @@ export class PHPLanguage implements Language {
 		}
 
 		try {
-			const ast = this.#engine.parseCode(file.body, file.path);
+			const ast = parse(file.body);
+
+			console.log(ast);
 
 			return {
 				ok: true,

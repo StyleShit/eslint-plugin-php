@@ -21,13 +21,16 @@ export const eqeqeq = createRule<MessageIds, Options>({
 
 	create(context) {
 		return {
-			"bin[type='=='], bin[type='!=']"(node: Bin) {
+			'Expr_BinaryOp_Equal, Expr_BinaryOp_NotEqual'(node) {
+				const operator =
+					node.nodeType === 'Expr_BinaryOp_Equal' ? '==' : '!=';
+
 				context.report({
 					node,
 					messageId: 'unexpected',
 					data: {
-						expectedOperator: node.type === '==' ? '===' : '!==',
-						actualOperator: node.type,
+						expectedOperator: operator === '==' ? '===' : '!==',
+						actualOperator: operator,
 					},
 				});
 			},

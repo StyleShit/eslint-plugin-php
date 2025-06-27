@@ -34,6 +34,7 @@
 		"php"
 	],
 	"scripts": {
+		"prepare": "composer install --no-dev --optimize-autoloader",
 		"test": "vitest",
 		"test:coverage": "vitest run --coverage",
 		"lint": "concurrently -n eslint,tsc -c magenta,blue 'eslint ./' 'tsc'",
@@ -64,6 +65,8 @@
 	"dependencies": {
 		"@eslint/core": "^0.13.0",
 		"@eslint/plugin-kit": "^0.2.8",
+		"@php-wasm/node": "^1.1.4",
+		"@php-wasm/universal": "^1.1.4",
 		"php-parser": "^3.2.3"
 	},
 	"peerDependencies": {

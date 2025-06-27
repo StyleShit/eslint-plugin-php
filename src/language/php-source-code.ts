@@ -1,6 +1,7 @@
 import type { Location, Node } from 'php-parser';
 import type { Position } from '@eslint/core';
 import {
+	type SourceLocation,
 	type SourceRange,
 	type TraversalStep,
 	VisitNodeStep,
@@ -18,11 +19,47 @@ export class PHPSourceCode extends TextSourceCodeWithComments {
 	}
 
 	override getRange(nodeOrToken: Node): SourceRange {
-		if (!nodeOrToken.loc) {
-			throw new Error('Node does not have a location');
-		}
+		const loc = this.getLoc(nodeOrToken);
 
-		return [nodeOrToken.loc.start.offset, nodeOrToken.loc.end.offset];
+		console.log('loc:', loc);
+
+		return [loc.start.offset, loc.end.offset];
+	}
+
+	override getLoc(node: object): SourceLocation {
+		const startLine = node.attributes.startLine;
+		const endLine = node.attributes.endLine;
+		const startOffset = node.attributes.startFilePos;
+		const endOffset = node.attributes.endFilePos;
+
+		const hasOffset = startOffset >= 0 && endOffset >= 0;
+
+		const startColumn = hasOffset
+			? this.getColumnFromOffset(startOffset)
+			: 0;
+
+		const endColumn = hasOffset
+			? this.getColumnFromOffset(endOffset + 1)
+			: 0;
+
+		return {
+			start: {
+				line: startLine,
+				column: startColumn,
+				offset: startOffset,
+			},
+			end: {
+				line: endLine,
+				column: endColumn,
+				offset: endOffset + 1,
+			},
+		};
+	}
+
+	getColumnFromOffset(offset: number) {
+		const lines = this.text.slice(0, offset).split('\n');
+
+		return lines.at(-1)?.length ?? -1;
 	}
 
 	override traverse() {
